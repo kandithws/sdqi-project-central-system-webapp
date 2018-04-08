@@ -10,7 +10,8 @@ module.exports = {
       },
       license_plate_number: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       brand: {
         type: Sequelize.STRING

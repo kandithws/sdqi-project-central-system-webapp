@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var viewHelper = require('./helpers/view_helper');
 var indexRouter = require('./routes/index');
+var carsRouter = require('./routes/cars');
 // var quotesRouter = require('./routes/quotes');
 // var usersRouter = require('./routes/users');
 var finale = require('finale-rest')
@@ -50,6 +51,7 @@ app.locals.msgType2AlertMap = viewHelper.message_alert_map;
 // ------------------ App-Resources Routing ---------------------- 
 app.use('/', indexRouter);
 //app.use('/quotes', quotesRouter);
+app.use('/cars', carsRouter);
 
 var User = require('./models/index').User;
 //------ Authen Routes ---

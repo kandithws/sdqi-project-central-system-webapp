@@ -4,8 +4,7 @@ var authController = require('../controllers/AuthController.js');
 
 /* GET home page. */
 router.get('/',  function(req, res, next){
-    req.flash("info", "Hello World!");
-    res.render('index.ejs', { title: 'Express' }); 
+    res.render('index.ejs', { title: 'AutoToll' }); 
 });
 
 router.get('/dashboard', authController.isLoggedIn, function(req, res, next){

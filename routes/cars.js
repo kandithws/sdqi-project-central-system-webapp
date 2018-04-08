@@ -8,4 +8,9 @@ var carsController = require('../controllers/CarsController');
 
 router.get('/new', authController.isLoggedIn, carsController.new)
 
-router.post('/cars', authController.isLoggedIn, carsController.create)
+//router.get('/cars', authController.isLoggedIn, carsController.new)
+
+router.post('/', authController.isLoggedIn, carsController.create)
+
+
+module.exports = router;

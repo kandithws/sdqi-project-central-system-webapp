@@ -19,6 +19,15 @@ module.exports.ac = ac;
 } => check if user is the owner of that resource
 */
 
+function mapAdminToRole(admin){
+  if(admin){
+    return 'admin';
+  }
+  else{
+    return 'user';
+  }
+}
+
 function isResourceOwner(req, resrc){
     var owner = resrc.getUser()
     return req.user.id === owner.id
@@ -26,7 +35,7 @@ function isResourceOwner(req, resrc){
 
 
 module.exports.isAuthorizedOwn = function(req, action, resource_name){
-    var actmp = ac.can(req.user.role);
+    var actmp = ac.can( mapAdminToRole(req.user.admin) );
     var permission = false;
     switch(action){
         case 'create':
@@ -50,7 +59,7 @@ module.exports.isAuthorizedOwn = function(req, action, resource_name){
 }
 
 module.exports.isAuthorizedOwnObject = function(req, action, resource_obj){
-  var actmp = ac.can(req.user.role);
+  var actmp = ac.can( mapAdminToRole(req.user.admin) );
   var permission = false;
   switch(action){
       case 'create':
@@ -74,7 +83,7 @@ module.exports.isAuthorizedOwnObject = function(req, action, resource_obj){
 }
 
 module.exports.isAuthorizedAny = function(req, action, resource_name){
-    var actmp = ac.can(req.user.role);
+    var actmp = ac.can( mapAdminToRole(req.user.admin) );
     var permission = false;
     switch(action){
         case 'create':
