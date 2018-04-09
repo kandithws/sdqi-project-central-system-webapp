@@ -29,7 +29,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('secretgoeshere'));
-app.use(session({ cookie: { maxAge: 60000 },
+// Max age in-terms of second
+app.use(session({ cookie: { maxAge: 60 * 60 * 1000 }, 
   resave: true, 
   saveUninitialized: false}));
 

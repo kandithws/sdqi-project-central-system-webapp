@@ -8,7 +8,7 @@ router.get('/',  function(req, res, next){
 });
 
 router.get('/dashboard', authController.isLoggedIn, function(req, res, next){
-    req.flash("info", "Welcome " + req.user.firstname + " !");
+    //req.flash("info", "Welcome " + req.user.firstname + " !");
     res.render('dashboard.ejs'); 
 });
 

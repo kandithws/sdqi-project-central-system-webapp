@@ -13,7 +13,7 @@ ac.grant('user')                    // define new or modify existing role. also 
     .updateAny('Car')  // explicitly defined attributes
     .deleteAny('Car');
 
-module.exports.ac = ac;
+
 
 /* function isResourceOwner(req){ 
 } => check if user is the owner of that resource
@@ -36,24 +36,27 @@ function isResourceOwner(req, resrc){
 
 module.exports.isAuthorizedOwn = function(req, action, resource_name){
     var actmp = ac.can( mapAdminToRole(req.user.admin) );
+    
     var permission = false;
     switch(action){
         case 'create':
-          permission = actmp.createOwn(resource_name)
+          permission = actmp.createOwn(resource_name).granted
           break;
         case 'read':
-          permission = actmp.readOwn(resource_name);
+          permission = actmp.readOwn(resource_name).granted;
           break;
         case 'update':
-          permission = actmp.updateOwn(resource_name);
+          permission = actmp.updateOwn(resource_name).granted;
           break;
         case 'delete':
-          permission = actmp.deleteOwn(resource_name);
+          permission = actmp.deleteOwn(resource_name).granted;
           break; 
         default:
           throw Error('No specified Type'); 
   
     }
+
+    // console.log("Permission own :" + permission.toString())
   
     return permission 
 }
@@ -63,16 +66,16 @@ module.exports.isAuthorizedOwnObject = function(req, action, resource_obj){
   var permission = false;
   switch(action){
       case 'create':
-        permission = actmp.createOwn(resource_obj.name)
+        permission = actmp.createOwn(resource_obj.name).granted
         break;
       case 'read':
-        permission = actmp.readOwn(resource_obj.name) && isResourceOwner(req, resource_obj);
+        permission = actmp.readOwn(resource_obj.name).granted && isResourceOwner(req, resource_obj);
         break;
       case 'update':
-        permission = actmp.updateOwn(resource_obj.name) && isResourceOwner(req, resource_obj);
+        permission = actmp.updateOwn(resource_obj.name).granted && isResourceOwner(req, resource_obj);
         break;
       case 'delete':
-        permission = actmp.deleteOwn(resource_obj.name) && isResourceOwner(req, resource_obj);
+        permission = actmp.deleteOwn(resource_obj.name).granted && isResourceOwner(req, resource_obj);
         break; 
       default:
         throw Error('No specified Type');
@@ -87,19 +90,21 @@ module.exports.isAuthorizedAny = function(req, action, resource_name){
     var permission = false;
     switch(action){
         case 'create':
-          permission = actmp.createAny(resource_name)
+          permission = actmp.createAny(resource_name).granted
           break;
         case 'read':
-          permission = actmp.readAny(resource_name)
+          permission = actmp.readAny(resource_name).granted
           break;
         case 'update':
-          permission = actmp.updateAny(resource_name)
+          permission = actmp.updateAny(resource_name).granted
           break;
         case 'delete':
-          permission = actmp.deleteAny(resource_name)
+          permission = actmp.deleteAny(resource_name).granted
           break; 
         default:
           throw Error('No specified Type');
     }
     return permission;
 }
+
+module.exports.ac = ac;

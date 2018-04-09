@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   User.associate = function(models) {
     // associations can be defined here
-    User.hasMany(models.Car) // usage, user.getCars()
+    // OnDelete: 'CASCADE' = Dependet destroy
+    User.hasMany(models.Car, {onDelete: 'CASCADE'} ) // usage, user.getCars()
   };
   return User;
 };

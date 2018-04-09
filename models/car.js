@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     brand: DataTypes.STRING,
     model_name: DataTypes.STRING,
     model_year: DataTypes.STRING,
-    color: DataTypes.STRING,
+    color: DataTypes.STRING
   }, {});
   Car.associate = function(models) {
     // associations can be defined here
-    Car.belongsTo(models.User) // getUser()
+    Car.belongsTo(models.User, {as: 'User', foreignKey: 'user_id' }) // getUser(), setUser() -- we need to match foreignKey with Migrations (Schema)
   };
   return Car;
 };

@@ -39,7 +39,7 @@ module.exports = {
           model: 'Users', //table name
           key: 'id'
         },
-        allowNull: false
+        // allowNull: false
       }
     });
   },
